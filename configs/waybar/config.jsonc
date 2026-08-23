@@ -1,0 +1,73 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 0,
+  "spacing": -16,
+  "modules-left": [
+    "hyprland/workspaces"
+  ],
+  "modules-center": [
+    "clock"
+    ],
+    "modules-right": [
+      "backlight",
+      "pulseaudio",
+      "network",
+      "bluetooth",
+      "battery",
+      "tray"
+    ],
+    "hyprland/workspaces": {
+      "format": "{name}",
+      "format-icons": {
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": "",
+        "active": "",
+        "default": ""
+      },
+      "persistent-workspaces": {
+        "eDP-1": 4
+      }
+    },
+    "clock": {
+      "format": "[ {:%H:%M} ]",
+      "tooltip-format": "<big>{:%A %d %B %Y}</big>"
+    },
+    "backlight": {
+      "format": "brigh: {percent}% |"
+    },
+    "pulseaudio": {
+      "format": "vol: {volume}% |",
+      "format-muted": "vol: mute |",
+      "scroll-step": 5,
+      "on-click": "kitty -e wiremix"
+    },
+    "network": {
+      "format-wifi": "net: connected |",
+      "format-ethernet": "net:connected |",
+      "format-disconnected": "net: disconnected |",
+      "tooltip-format": "{essid} {ipaddr}",
+        "on-click": "kitty -e impala"
+    },
+    "bluetooth": {
+      "format": "bt: disconnected |", 
+      "format-disabled": "bt: disabled |", 
+      "format-off": "bt: off |",
+      "format-connected": "bt: connected |",
+      "tooltip": true,
+      "tooltip-format": "connected to {device_alias}",
+      "on-click": "kitty -e bluetui"
+    },
+    "battery": {
+      "format": "bat: {capacity}%",
+      "format-charging": "bat: {capacity}%",
+      "warning": 25,
+      "critical": 10
+    },
+    "tray": {
+      "spacing": 10
+    }
+}
