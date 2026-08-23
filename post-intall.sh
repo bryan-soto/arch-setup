@@ -28,7 +28,7 @@ paru -S --noconfirm \
     fd ripgrep fzf zoxide resvg imagemagick tree-sitter-cli nodejs npm \
     wl-clipboard bluez bluez-utils bluetui bat eza man-db man-pages \
     man-pages-es impala btop wiremix trash-cli walker elephant-all \
-    hypridle hyprlock udisks2 udiskie
+    hypridle hyprlock udisks2 udiskie fastfetch tree
 
 # 4. Habilitar y arrancar servicios esenciales
 echo "[+] Habilitando servicios de systemd..."
