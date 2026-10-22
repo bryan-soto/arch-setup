@@ -33,10 +33,10 @@ echo "3) Intel / AMD Integrada / Otras (Drivers libres MESA)"
 read -p "Elige una opción [1-3]: " GPU_CHOICE
 
 case $GPU_CHOICE in
-    1) GPU_PACKAGES="nvidia nvidia-utils nvidia-settings" ;;
-    2) GPU_PACKAGES="xf86-video-nouveau mesa" ;;
-    3) GPU_PACKAGES="mesa vulkan-intel" ;;
-    *) GPU_PACKAGES="mesa" ;;
+  1) GPU_PACKAGES=(nvidia nvidia-utils nvidia-settings) ;;
+  2) GPU_PACKAGES=(xf86-video-nouveau mesa) ;;
+  3) GPU_PACKAGES=(mesa vulkan-intel) ;;
+  *) GPU_PACKAGES=(mesa) ;;
 esac
 
 # Pedir datos clave de usuario y disco antes de la acción pesada
@@ -88,14 +88,16 @@ btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@cache
 btrfs subvolume create /mnt/@log
+btrfs subvolume create /mnt/@srv
 btrfs subvolume create /mnt/@snapshots
 umount /mnt
 
 OPTS="noatime,compress=zstd:3,space_cache=v2"
 mount -o "$OPTS",subvol=@ "$PART_ROOT" /mnt
-mkdir -p /mnt/{boot,home,var/log,var/cache,.snapshots}
+mkdir -p /mnt/{boot,home,srv,var/log,var/cache,.snapshots}
 mount -o "$OPTS",subvol=@home "$PART_ROOT" /mnt/home
 mount -o "$OPTS",subvol=@log "$PART_ROOT" /mnt/var/log
+mount -o "$OPTS",subvol=@srv "$PART_ROOT" /mnt/srv
 mount -o "$OPTS",subvol=@cache "$PART_ROOT" /mnt/var/cache
 mount -o "$OPTS",subvol=@snapshots "$PART_ROOT" /mnt/.snapshots
 
@@ -105,7 +107,7 @@ fi
 
 # 6. Instalar paquetes base
 echo "[+] Instalando paquetes base..."
-pacstrap -K /mnt base base-devel linux linux-headers linux-firmware btrfs-progs iwd limine neovim bash-completion git "$UCUBE" "$GPU_PACKAGES"
+pacstrap -K /mnt base base-devel linux linux-headers linux-firmware btrfs-progs iwd limine neovim bash-completion git "$UCUBE" "${GPU_PACKAGES[@]}"
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
